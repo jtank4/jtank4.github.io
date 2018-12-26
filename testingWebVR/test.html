@@ -6,11 +6,9 @@ a-scene{max-width:100px;max-height:100px}
 </style>
 </head>
 <body>
-<video id="samp" src="loading.jpg" volume="25"></video>
+<img id="samp" src="loading.jpg">
 <a-scene embedded>
-<a-sky id="testSky"></a-sky>
+<a-sky id="testSky" src="loading.jpg"></a-sky>
 </a-scene>
-
-<script>window.addEventListener("load", function(){document.getElementById("testSky").setAttribute("src","#samp");});</script>
 <body>
 </html>
