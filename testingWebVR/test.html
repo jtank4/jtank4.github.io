@@ -1,0 +1,16 @@
+<html>
+<head>
+<script src="https://firebasestorage.googleapis.com/v0/b/justsomestuff-61227.appspot.com/o/testingVR%2Faframe-v0.8.0.js?alt=media&token=91caef8d-e197-4b13-8bf4-63e5ce28cee2"></script>
+<style>
+a-scene{max-width:100px;max-height:100px}
+</style>
+</head>
+<body>
+<video id="samp" src="https://firebasestorage.googleapis.com/v0/b/justsomestuff-61227.appspot.com/o/testingVR%2FFirefox.mp4?alt=media&token=d443b510-e794-4a38-968c-e20254d0c529" volume="25"></video>
+<a-scene embedded>
+<a-sky id="testSky"></a-sky>
+</a-scene>
+
+<script>window.addEventListener("load", function(){document.getElementById("testSky").setAttribute("src","#samp");});</script>
+<body>
+</html>
