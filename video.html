@@ -1,0 +1,19 @@
+<html>
+<script>
+function dos(){
+	var vid = document.getElementById("vid");
+	var vidSrc = document.createElement("source");
+	params = new URLSearchParams(window.location.search);
+	vidSrc.src = params.get("video");
+	vidSrc.type = "video/mp4"
+	vid.appendChild(vidSrc);
+}
+</script>
+<body onload="dos()">
+<div>
+<div>
+<video id="vid" controls></video>
+</div>
+</div>
+</body>
+</html>
