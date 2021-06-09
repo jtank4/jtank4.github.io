@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<title>Timer/Alarm With Milliseconds</title>
+		<style>
+			.number {
+				font-size: 32px;
+			}
+			.t {
+				display: table;
+			}
+			.tr {
+				display: table-row;
+			}
+			.td {
+				display: table-cell;
+			}
+			.pad {
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="t">
+			<div class="tr">
+				<input id="hour" type="text" class="number td" value="0" maxlength="2" size="2"></input>
+				<span class="number td">:</span>
+				<input id="minute" type="text" class="number td" value="0" maxlength="2" size="2"></input>
+				<span class="number td">:</span>
+				<input id="second" type="text" class="number td" value="4" maxlength="2" size="2"></input>
+				<span class="number td">:</span>
+				<input id="millisecond" type="text" class="number td" value="800" maxlength="3" size="3"></input>
+			</div>
+			<div class="tr">
+				<span class="number td">H</span>
+				<span class="number td">:</span>
+				<span class="number td">M</span>
+				<span class="number td">:</span>
+				<span class="number td">S</span>
+				<span class="number td">:</span>
+				<span class="number td">MS</span>
+			</div>
+		</div>
+		<div class="pad">
+			<button id="start">Start</button>
+			<button id="stop">Stop</button>
+		</div>
+		<div>
+			<audio id="beep" src="media/beep.wav" controls>Couldn't load countdown beep</audio>
+			Countdown beep
+		</div>
+		<div>
+			<audio id="alarm" src="media/alarm.wav" controls>Couldn't load alarm</audio>
+			Alarm
+		</div
+	</body>
+	<script>
+		document.getElementById("beep").volume = 0.3;
+		document.getElementById("alarm").volume = 0.3;
+		
+		var timerObj = {};
+		timerObj.interval = null; //Reference to the return value from set interval later used to clear the interval
+		timerObj.hourIn = 0; //Used to save the hours input when the timer is started
+		timerObj.minuteIn = 0;
+		timerObj.secondIn = 0;
+		timerObj.millisecondIn = 0;
+		timerObj.startTime = Date.now(); //Used to save current time when timer is started
+		timerObj.startDate = new Date(); //Used to save a date with the time set to whatever is set in the timer input
+		timerObj.millisInTimer = 0; //Technically could be calculated each time, but just calculate once and save
+		timerObj.countdownBeeps = []; //Saves the milliseconds until finish of when the beeps should occur and whether they've occured yet
+		
+		timerObj.hourInput = document.getElementById("hour");
+		timerObj.minuteInput = document.getElementById("minute");
+		timerObj.secondInput = document.getElementById("second");
+		timerObj.millisecondInput = document.getElementById("millisecond");
+		
+		timerObj.beep = document.getElementById("beep");
+		
+		timerObj.updateTimer = ((curDate)=>{timerObj.hourInput.value = curDate.getHours(); timerObj.minuteInput.value = curDate.getMinutes(); timerObj.secondInput.value = curDate.getSeconds(); timerObj.millisecondInput.value = curDate.getMilliseconds();});
+		
+		timerObj.start = () => {
+			timerObj.startTime = Date.now();
+			timerObj.hourIn = timerObj.hourInput.value;
+			timerObj.minuteIn = timerObj.minuteInput.value;
+			timerObj.secondIn = timerObj.secondInput.value;
+			timerObj.millisecondIn = timerObj.millisecondInput.value;
+			timerObj.startDate = new Date(1999, 11, 31, timerObj.hourIn, timerObj.minuteIn, timerObj.secondIn, timerObj.millisecondIn);
+			timerObj.millisInTimer = timerObj.startDate - new Date("December 31, 1999");
+			timerObj.interval = window.setInterval(timerObj.update, 1);
+			timerObj.countdownBeeps = [[timerObj.millisInTimer - 5000, (5000>timerObj.millisInTimer)?1:0], [timerObj.millisInTimer - 4000, (4000>timerObj.millisInTimer)?1:0], [timerObj.millisInTimer - 3000, (3000>timerObj.millisInTimer)?1:0], [timerObj.millisInTimer - 2000, (2000>timerObj.millisInTimer)?1:0], [timerObj.millisInTimer - 1000, (1000>timerObj.millisInTimer)?1:0]]
+		}
+		
+		timerObj.update = () => {
+			let passed = Date.now() - timerObj.startTime;
+			let curDate = new Date(timerObj.startDate - passed);
+			timerObj.updateTimer(curDate);
+			for(let arr of timerObj.countdownBeeps){
+				if((passed > arr[0]) && (arr[1] == 0)){
+					beep.play();
+					arr[1] = 1;
+				}
+			}
+			if(passed >= timerObj.millisInTimer){
+				alarm.play();
+				timerObj.stop();
+				timerObj.updateTimer(timerObj.startDate);
+			}
+		}
+		
+		timerObj.stop = () => {
+			window.clearInterval(timerObj.interval); timerObj.interval = null;
+		}
+		
+		document.getElementById("start").onclick = timerObj.start;
+		document.getElementById("stop").onclick = timerObj.stop;
+	</script>
+</html>
