@@ -1,0 +1,15 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script>
+function encrypt(){
+	var encImg = document.getElementById("text").value;
+	var pass = document.getElementById("passIn").value;
+	encImg = CryptoJS.AES.decrypt(encImg, pass);
+	encImg = encImg.toString(CryptoJS.enc.Utf8);
+	var img = document.getElementById("imgOut");
+	img.src = "data:image/png;base64," + encImg;
+}
+</script>
+Paste encrypted image data here:<textarea id="text" rows="50" cols="50"></textarea>
+Password:<input type="text" id="passIn">
+<button onclick="encrypt()" >Submit</button>
+<img id="imgOut" />

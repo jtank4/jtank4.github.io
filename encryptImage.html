@@ -1,0 +1,14 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script>
+function encrypt(){
+	const selectedFile = document.getElementById("picIn").files[0];
+	var pass = document.getElementById("passIn").value;
+	var imgRead = new FileReader();
+	imgRead.onload = function () {document.getElementById("text").value = CryptoJS.AES.encrypt(btoa(imgRead.result), pass)};
+	imgRead.readAsBinaryString(selectedFile);
+}
+</script>
+Password:<input type="text" id="passIn">
+<input type="file" id="picIn">
+<button onclick="encrypt()" >Submit</button>
+<textarea id="text" rows="50" cols="50"></textarea>
