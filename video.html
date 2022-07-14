@@ -5,7 +5,7 @@ function dos(){
 	var vidSrc = document.createElement("source");
 	params = new URLSearchParams(window.location.search);
 	vidSrc.src = params.get("video");
-	vidSrc.type = "video/mp4"
+	vidSrc.type = params.get("type");
 	vid.appendChild(vidSrc);
 }
 </script>
