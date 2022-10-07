@@ -1,0 +1,13 @@
+<html>
+	<body>
+		<iframe id="vid" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+		<script>
+			let params = (new URL(document.location)).searchParams;
+			document.getElementById("vid").src = "https://www.youtube.com/embed/" + params.get("v") + "?start=" + params.get("t") + "&end=" + params.get("e");
+		</script>
+		To use this, click the share button on a youtube video and check the button to start at a certain time. Copy everthing including and after the question mark onto the end of the url https://jtank4.github.io/clipYoutubeVid.html
+		and remove the s after the number of seconds in the t parameter.
+		Then you can add &e=the number of seconds at which the video should stop
+		to the end of the url. You can look at the current url as an example of how it should look at the end.
+	</body>
+</html>
