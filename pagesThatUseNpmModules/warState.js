@@ -13,6 +13,6 @@ function readyPage(e){
 }
 
 webReq.onreadystatechange = readyPage;
-const warframeStateUrl = "http://content.warframe.com/dynamic/worldState.php";
+const warframeStateUrl = "https://content.warframe.com/dynamic/worldState.php";
 webReq.open("GET", warframeStateUrl);
 fetch("http://content.warframe.com/dynamic/worldState.php").then(data => console.log(data));
