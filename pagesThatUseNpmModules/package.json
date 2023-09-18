@@ -1,0 +1,27 @@
+{
+  "name": "jtank4gitnpmpages",
+  "version": "1.0.0",
+  "description": "Pages of jtank4.github.io that use NPM modules",
+  "private": true,
+  "scripts": {
+    "watch": "watchify warState.js -o bundle.js",
+    "start": "http-server --cors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtank4/jtank4.github.io.git"
+  },
+  "author": "jtank4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtank4/jtank4.github.io/issues"
+  },
+  "homepage": "https://github.com/jtank4/jtank4.github.io#readme",
+  "dependencies": {
+    "warframe-worldstate-parser": "^2.30.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "watchify": "^4.0.0"
+  }
+}
