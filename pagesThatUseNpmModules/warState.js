@@ -1,6 +1,6 @@
 const WorldState = require("warframe-worldstate-parser");
 const webReq = new XMLHttpRequest();
-var pageState = {"ready":false};
+var pageState = {ready:false};
 var warState;
 
 function readyPage(e){
@@ -15,4 +15,7 @@ function readyPage(e){
 webReq.onreadystatechange = readyPage;
 const warframeStateUrl = "https://content.warframe.com/dynamic/worldState.php";
 webReq.open("GET", warframeStateUrl);
-fetch("http://content.warframe.com/dynamic/worldState.php").then(data => console.log(data));
+webReq.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+webReq.setRequestHeader('Access-Control-Allow-Origin', '*');
+webReq.send();
+fetch("https://content.warframe.com/dynamic/worldState.php", {method: "get", headers: {"X-Requested-With": "XMLHttpRequest", "Access-Control-Allow-Origin": "*"}, mode:"cors"}).then(data => console.log(data));
