@@ -59268,24 +59268,39 @@ module.exports = require('./lib/WorldState');
 
 },{"./lib/WorldState":206}],251:[function(require,module,exports){
 const WorldState = require("warframe-worldstate-parser");
-const webReq = new XMLHttpRequest();
 var pageState = {ready:false};
 var warState;
+const warStateArea = document.getElementById("dataArea");
+const queryInput = document.getElementById("queryBox");
+const calcButt = document.getElementById("calcButt");
+const logArea = document.getElementById("logArea");
+
+function addLog(str){
+	logArea.value += str + " " + (new Date()).toString() + "\n";
+}
 
 function readyPage(e){
-	console.log(webReq)
-	if(webReq.status == 200){
-		warState= new WorldState(webReq.responseText);
-		console.log(ws.alerts[0].toString());
+	if(warStateArea.value != ""){
+		warState = new WorldState(warStateArea.value);
+		//console.log(warState.archonHunt);
+		//console.log(warState.duviriCycle);
 		pageState.ready = true;
+	}
+	else{
+		addLog("no text was copied into text field, not setting page as ready for query");
 	}
 }
 
-webReq.onreadystatechange = readyPage;
-const warframeStateUrl = "https://content.warframe.com/dynamic/worldState.php";
-webReq.open("GET", warframeStateUrl);
-webReq.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-webReq.setRequestHeader('Access-Control-Allow-Origin', '*');
-webReq.send();
-fetch("https://content.warframe.com/dynamic/worldState.php", {method: "get", headers: {"X-Requested-With": "XMLHttpRequest", "Access-Control-Allow-Origin": "*"}, mode:"cors"}).then(data => console.log(data));
+function query(e){
+	if(pageState.ready){
+		console.log(warState[queryInput.value]);
+		addLog(warState[queryInput.value]);
+	}
+	else{
+		addLog("Copy text over first!");
+	}
+}
+
+warStateArea.addEventListener("change", readyPage);
+calcButt.addEventListener("click", query);
 },{"warframe-worldstate-parser":250}]},{},[251]);

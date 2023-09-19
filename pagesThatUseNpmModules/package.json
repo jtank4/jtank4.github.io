@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "watch": "watchify warState.js -o bundle.js",
-    "start": "http-server --cors"
+    "start": "http-server"
   },
   "repository": {
     "type": "git",

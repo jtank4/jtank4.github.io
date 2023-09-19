@@ -1,9 +1,23 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
-		<script type="text/javascript" src="bundle.js"></script>
 	</head>
 	<body>
-		hibye
+		<div style="flex">
+			<p>Copy the text from below into the empty textbox to the right.</p>
+			<iframe src="https://content.warframe.com/dynamic/worldState.php" ></iframe>
+			<textarea id="dataArea" rows="10"></textarea>
+			<input id="queryBox" value="duviriCycle"></input>
+			<input id="calcButt" type="button" value="Query State"></input>
+		</div>
+		<textarea id="logArea" rows="10" cols="200"></textarea>
+		<p>
+		Notes:<br>
+		Example state queries: duviriCycle, archonHunt, vaultTrader<br>
+		Look at https://github.com/WFCD/warframe-worldstate-parser/blob/master/lib/WorldState.js for reference on potential query values.<br>
+		Unfortunately the Warframe worldstate page does not have an Access-Control-Allow-Origin header meaning using CORS to make an xmlhttprequest within front end JS is impossible. I'd need a server running nodejs to be able to automate the request.
+		</p>
+		<!--This script needs to be below the body to make sure the body is loaded first-->
+		<script type="text/javascript" src="bundle.js"></script>
 	</body>
 </html>
